@@ -1,0 +1,1226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>诛仙后传·红鸾笑｜第1集草庙村制作脚本</title>
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --paper: #f5f5f7;
+      --panel: #ffffff;
+      --line: #d2d2d7;
+      --blue: #0071e3;
+      --green: #2e7d59;
+      --orange: #bf5b00;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+    }
+    .shell { width: min(1760px, calc(100vw - 28px)); margin: 0 auto; }
+    header {
+      padding: 18px 0 14px;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(245, 245, 247, 0.86);
+      backdrop-filter: saturate(180%) blur(20px);
+    }
+    .brand-title {
+      margin: 0;
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "PingFang SC", serif;
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 800;
+      color: #111114;
+      text-shadow: 0 1px 0 #fff, 0 10px 28px rgba(0,0,0,0.10);
+    }
+    .brand-subtitle {
+      margin-top: 4px;
+      color: var(--muted); font-size: 12px;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    h1 {
+      margin: 7px 0 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      font-size: 26px;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-weight: 650;
+      color: #2a2a2d;
+    }
+    .summary { display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); line-height: 20px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; background: rgba(255,255,255,0.78); font-size: 12px; line-height: 18px; font-weight: 500; }
+    nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; line-height: 20px; }
+    nav a { color: var(--blue); text-decoration: none; padding: 0; margin: 0; font-size: 12px; line-height: 20px; font-weight: 600; }
+    .shot-card {
+      background: var(--panel);
+      border: 1px solid rgba(210, 210, 215, 0.82);
+      border-radius: 12px;
+      box-shadow: 0 8px 22px var(--shadow);
+      overflow: hidden;
+    }
+    .asset-figure img { width: 100%; height: auto; display: block; object-fit: contain; border-radius: 8px; }
+    figcaption { color: var(--muted); font-size: 12px; line-height: 1.35; margin: 0; overflow-wrap: anywhere; }
+    .sequence { margin: 14px 0 30px; }
+    .section-title { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; border-top: 1px solid var(--line); padding-top: 14px; }
+    .section-title span { color: var(--blue); font-weight: 800; font-size: 16px; line-height: 20px; letter-spacing: 0.04em; }
+    .section-title h2 {
+      margin: 0;
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "PingFang SC", serif;
+      font-size: clamp(23px, 2.1vw, 34px);
+      line-height: 1.2;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+    .shot-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .video-group {
+      grid-column: 1 / -1;
+      padding: 10px;
+      border: 1px solid rgba(0, 113, 227, 0.22);
+      border-radius: 14px;
+      border-left: 4px solid var(--blue);
+      background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(247,248,252,0.82));
+      box-shadow: 0 10px 26px var(--shadow);
+    }
+    .video-group-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .video-group-head span { color: #fff; background: var(--blue); font-size: 13px; line-height: 22px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 1px 10px; border-radius: 4px; display: inline-block; }
+    .video-group-head h3 { margin: 3px 0 0; font-size: 27px; line-height: 34px; letter-spacing: 0.005em; font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "PingFang SC", serif; font-weight: 700; text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 4px 14px rgba(0,0,0,0.06); }
+    .video-group-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; max-width: 48%; }
+    .video-group-meta span {
+      color: var(--muted); font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(247,248,252,0.82));
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .video-group-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(620px, 0.98fr);
+      gap: 12px;
+      margin-top: 9px;
+    }
+    .video-group-body section {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfbfd;
+      padding: 8px;
+      min-width: 0;
+    }
+    .video-group-body h4 { margin: 0 0 6px; color: var(--blue); font-size: 14px; line-height: 18px; font-weight: 700; letter-spacing: 0.02em; }
+    .video-group-body p { margin: 0; font-size: 13px; line-height: 1.55; color: #2f3033; overflow-wrap: anywhere; }
+    .video-main { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .video-group-prompt { grid-row: span 2; }
+    .video-group-prompt p { white-space: pre-wrap; }
+    .reference-assets { align-self: start; }
+    .reference-assets .visuals { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 0; align-items: start; }
+    .reference-assets .asset-figure { padding: 8px; }
+    .reference-assets .asset-figure img { aspect-ratio: 16 / 9; object-fit: cover; }
+    .reference-assets .asset-figure-contain img { aspect-ratio: 9 / 16; object-fit: contain; background: #eef1f5; }
+    .reference-assets .asset-missing { min-height: 190px; font-size: 15px; line-height: 22px; }
+    .video-group > .shot-grid { margin-top: 10px; }
+    .shot-card { padding: 10px; min-width: 0; }
+    .shot-head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; border-bottom: 1px solid var(--line); padding-bottom: 7px; }
+    .shot-num { color: var(--blue); font-weight: 700; font-size: 12px; }
+    .shot-head h3 { margin: 2px 0 0; font-size: 17px; letter-spacing: 0.01em; font-weight: 650; }
+    .duration { background: #1d1d1f; color: #fff; padding: 4px 8px; border-radius: 999px; font-size: 11px; white-space: nowrap; }
+    .final-frame {
+      margin: 8px 0 9px;
+      padding: 8px;
+      border: 1px solid rgba(0, 113, 227, 0.22);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(0,113,227,0.065), rgba(255,255,255,0.72));
+    }
+    .final-frame h4 { margin: 0 0 5px; color: var(--blue); font-size: 12px; line-height: 16px; }
+    .final-frame p { margin: 3px 0; line-height: 1.45; color: #1d1d1f; overflow-wrap: anywhere; }
+    .final-frame strong { font-weight: 700; color: #343438; }
+    .final-empty { min-height: 76px; border: 1px dashed rgba(0,113,227,0.28); border-radius: 8px; background: rgba(255,255,255,0.54); }
+    .shot-description {
+      margin: 8px 0 9px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfbfd;
+    }
+    .shot-description h4 { margin: 0 0 5px; color: #1d1d1f; font-size: 13px; line-height: 17px; }
+    .shot-description p { margin: 3px 0; line-height: 1.45; color: #2f3033; overflow-wrap: anywhere; }
+    .shot-description strong { font-weight: 700; color: #343438; }
+    .shot-elements {
+      margin: 8px 0 9px;
+      padding: 8px;
+      border: 1px solid rgba(0, 113, 227, 0.18);
+      border-radius: 10px;
+      background: rgba(0,113,227,0.045);
+    }
+    .shot-elements h4 { margin: 0 0 6px; color: var(--blue); font-size: 13px; line-height: 17px; }
+    .shot-elements dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; margin: 0; }
+    .shot-elements div { border: 1px solid rgba(0, 113, 227, 0.14); border-radius: 8px; padding: 6px; background: rgba(255,255,255,0.72); min-width: 0; }
+    .visuals { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; margin: 9px 0; }
+    .asset-figure { margin: 0; border: 1px solid var(--line); border-radius: 10px; background: #fbfbfd; padding: 5px; }
+    .reference-assets .asset-figure figcaption { font-size: 12px; line-height: 1.38; padding-top: 7px; }
+    .asset-figure figcaption { padding: 5px 1px 0; }
+    .asset-placeholder, .asset-missing { min-height: 86px; display: grid; place-items: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 10px; background: #fbfbfd; padding: 10px; text-align: center; }
+    .shot-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; margin: 0 0 8px; }
+    .shot-meta div { border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #fbfbfd; min-width: 0; }
+    dt { color: var(--muted); font-weight: 700; font-size: 11px; margin-bottom: 3px; }
+    dd { margin: 0; color: var(--ink); line-height: 1.4; font-size: 12px; }
+    .block { border-top: 1px solid var(--line); padding-top: 7px; margin-top: 7px; }
+    .block h4 { margin: 0 0 4px; font-size: 13px; color: var(--blue); }
+    .block p { margin: 0; line-height: 1.48; overflow-wrap: anywhere; color: #2f3033; }
+    .reference-note .visuals { margin: 4px 0 7px; }
+    .prompt-ref { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px !important; color: var(--muted) !important; }
+    .prompt-ref a { color: var(--blue); text-decoration: none; font-weight: 700; }
+    .prompt-ref span { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 6px; background: #fff; font-size: 10px; }
+    .prompt { background: rgba(0,102,204,0.055); padding: 7px; border: 1px solid rgba(0,102,204,0.18); border-radius: 10px; }
+    .prompt p, .video-prompt p { white-space: pre-wrap; }
+    .video-work { background: rgba(46,125,89,0.055); padding: 7px; border: 1px solid rgba(46,125,89,0.16); border-radius: 10px; }
+    .video-work h4 { color: var(--green); }
+    .video-prompt { background: rgba(191,91,0,0.055); padding: 7px; border: 1px solid rgba(191,91,0,0.16); border-radius: 10px; }
+    .video-prompt h4 { color: var(--orange); }
+    .primary-video-prompt { border-top: 0; margin-top: 8px; }
+    .video-assets {
+      grid-column: 1 / -1;
+      margin-top: 0;
+      padding: 14px;
+      border: 1px solid rgba(46,125,89,0.22);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(244,252,248,0.94), rgba(255,255,255,0.86));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .video-main .video-assets { margin-top: 0; }
+    .video-assets-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .video-assets-head h4 { margin: 0; color: var(--green); font-size: 18px; line-height: 24px; font-weight: 800; letter-spacing: 0.01em; }
+    .video-assets-head span { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.9); padding: 3px 10px; font-size: 12px; line-height: 18px; white-space: nowrap; font-weight: 700; }
+    .video-slot {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 210px;
+      border: 1px dashed rgba(46,125,89,0.34);
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,247,0.82)),
+        repeating-linear-gradient(45deg, rgba(46,125,89,0.05) 0, rgba(46,125,89,0.05) 8px, transparent 8px, transparent 16px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 14px;
+      color: var(--muted); font-size: 12px;
+    }
+    .video-main .video-slot { min-height: 330px; }
+    .video-slot strong { display: block; color: var(--ink); font-size: 16px; line-height: 22px; margin-bottom: 6px; letter-spacing: 0.02em; }
+    .video-slot span { display: block; line-height: 1.45; }
+    .video-candidate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+    .video-candidate {
+      margin: 0;
+      border: 1px solid rgba(46,125,89,0.22);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.82);
+      padding: 10px;
+      min-width: 0;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+    .video-candidate video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border-radius: 11px;
+      background: #111114;
+    }
+    .video-candidate figcaption {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 9px 2px 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .video-candidate figcaption strong { color: var(--green); font-size: 14px; line-height: 18px; }
+    .video-candidate figcaption span { overflow-wrap: anywhere; }
+    .video-missing {
+      border: 1px dashed rgba(46,125,89,0.34);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.74);
+      padding: 12px;
+      color: var(--muted);
+    }
+    .video-missing strong { display: block; color: var(--green); margin-bottom: 4px; }
+    .pending { color: var(--muted); }
+    .asset-library { margin: 18px 0 36px; }
+    .asset-library-note {
+      margin-top: 8px;
+      color: var(--muted); font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(247,248,252,0.82));
+      padding: 8px;
+      line-height: 1.45;
+    }
+    .asset-category { margin-top: 12px; }
+    .asset-category > h3 { margin: 0 0 8px; font-size: 15px; line-height: 20px; letter-spacing: 0; }
+    .asset-prompt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .asset-prompt-card {
+      border: 1px solid rgba(210, 210, 215, 0.82);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: 0 8px 22px var(--shadow);
+      padding: 10px;
+      min-width: 0;
+    }
+    .asset-prompt-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; border-bottom: 1px solid var(--line); padding-bottom: 7px; }
+    .asset-prompt-head span { color: var(--blue); font-size: 10px; font-weight: 700; }
+    .asset-prompt-head h3 { margin: 2px 0 0; font-size: 15px; line-height: 20px; }
+    .shot-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+    .shot-tags span { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 6px; background: #fbfbfd; white-space: nowrap; }
+    .asset-prompt-body { margin-top: 8px; }
+    .asset-prompt-body .visuals { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); margin: 0 0 8px; }
+    .asset-prompt-body p { margin: 0; white-space: pre-wrap; line-height: 1.5; color: #2f3033; overflow-wrap: anywhere; }
+    .asset-empty { border: 1px dashed var(--line); border-radius: 12px; background: rgba(255,255,255,0.64); color: var(--muted); min-height: 76px; display: grid; place-items: center; }
+    code { font-family: "SFMono-Regular", Menlo, monospace; font-size: 10px; }
+    @media (max-width: 1280px) {
+      .shot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .video-group-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .shot-grid { grid-template-columns: 1fr; }
+      .asset-prompt-grid { grid-template-columns: 1fr; }
+      .shell { width: min(100% - 18px, 1760px); }
+      header { position: static; }
+      .shot-meta { grid-template-columns: 1fr; }
+      .video-group-head { flex-direction: column; }
+      .video-group-meta { justify-content: flex-start; max-width: none; }
+      .video-group-body { grid-template-columns: 1fr; }
+      .video-candidate-grid { grid-template-columns: 1fr; }
+      .shot-elements dl { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="brand-title">诛仙后传·红鸾笑</div>
+      <div class="brand-subtitle">Episode 1 Production Script</div>
+      <h1>第1集「草庙村」制作脚本</h1>
+      <div class="summary">
+        <span class="pill">9 个视频段</span>
+        <span class="pill">总时长约 99s</span>
+        <span class="pill">已确认资产 8 张</span>
+        <span class="pill">交付格式：HTML</span>
+      </div>
+      <nav><a href="#section-1">第一幕 · 起念与抵达</a><a href="#section-2">第二幕 · 草庙村废墟</a><a href="#section-3">第三幕 · 木屋与绿色衣角风铃</a><a href="#section-4">第四幕 · 大黄小灰与张小凡</a><a href="#section-5">第五幕 · 重逢微笑与片名</a><a href="#asset-prompt-library">资产提示词库</a></nav>
+    </div>
+  </header>
+  <main class="shell">
+    
+            <section class="sequence" id="section-1">
+              <div class="section-title">
+                <span>Chapter 01</span>
+                <h2>第一幕 · 起念与抵达（1-4镜，共14s）</h2>
+              </div>
+              <div class="shot-grid">
+      <section class="video-group" id="VG-01">
+        <div class="video-group-head">
+          <div>
+            <span>VG-01</span>
+            <h3>小竹峰起念与出门</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜1、镜2</span>
+            <span>14s</span>
+            <span>Seedance 2.0 一次生成试验</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>【基本设定】
+人物：陆雪琪 （小竹峰首座，白衣女剑修），鹅蛋脸、柳叶弯眉、凤眼微挑、冰蓝色瞳孔、肤白如雪；黑发及腰、玉簪盘起、长鬓发垂落；身形修长挺拔（7.5-8 头身），纯白长裙、纱质外袍、银丝暗纹、白丝绦；清冷克制气质。脸型、五官、发饰、服装以陆雪琪四视图角色母版为准。
+场景：小竹峰外景 ——青蓝竹林、溪流、小巧弧形拱桥、青瓦飞檐、回廊残灯、晨雾笼罩，林深处藏仙门雅舍；居所室内 ——圆窗月洞门透光、竹帘半垂、素色木案、卷轴、青瓷茶盏。两处共用清晨光线（青蓝晨光 + 暖黄残灯点缀），整体清幽出尘，绝非农舍或宫阙。
+声音：仅保留同期声和对白，无配乐。
+
+【氛围与面质】
+风格核心：诛仙仙侠剑修、腾讯诛仙动画剧集3D国漫、玄机科技建模路线、清冷克制美学。从孤清独坐到决意起身，情绪推进以眉目微动、指节收紧、衣袂轻扬等细节动作为主，而非夸张表情；分镜三温柔的内心独白（同期录音，呼吸般的低语）。镜头美学拒绝炫技——慢推、慢停、慢呼吸，让观众的注意力一直停在陆雪琪的心事上，而不是镜头本身。
+视觉基调：16:9宽幅。24mm广角建立小竹峰大环境，不急于交代人物；室内段35mm～50mm中景跟拍陆雪琪独坐与起身；特写及近景段85mm定焦，光影透过圆窗和纱帘落在她侧脸和衣领上。所有运镜必须克制，机位移动量极小，靠被摄物自身的微动（纱帘、残灯、竹影）传递时间的缓慢流动。
+色彩与影调：以青蓝冷晨光为画面主色层——竹叶的青、晨雾的灰蓝、远山的墨青、室内石壁的冷灰，构成清冷基底。回廊残灯的暖黄光作为唯一暖色点缀，冷暖对比克制，不绚丽不喧哗。画面质感接近3D动画中手绘质感的柔和笔触，雾气有体积感但不过度梦幻，衣料和竹木有经年使用的旧感，杜绝过曝、杜绝塑料皮肤、杜绝大红大紫。
+
+分镜一：00:00-00:04
+景别：电影感大环境全景。
+构图：小竹峰竹林、溪桥、雅舍、圆窗、回廊残灯占据画面主要空间，人物不出现。
+机位与镜头：平视略高机位，约 1.6-2.0 米，模拟人远处回廊望向山门；24mm 广角，深景深。
+运镜手法：极慢横移，移动量小；镜头自左向右沿外景横向滑过，像清晨刚醒来的目光慢慢扫过山门。
+画面内容：天色刚亮，青蓝晨雾压在竹林和溪桥之间，几盏回廊残灯还微微亮着。溪水很轻，竹叶几乎不动。几只早起的鸟儿从林梢扑翅掠起，斜斜飞过画面，远处传来几声清脆鸟鸣——时辰尚早，整座小竹峰还未苏醒。镜头不急于交代情节，只先交代孤清、幽静、仙门清晨的气息，为陆雪琪的心事铺底。
+声音：晨风、溪水、竹叶声、鸟儿扑翅声、清脆鸟鸣。
+
+分镜二：00:04-00:07
+景别：室内中景，陆雪琪背影。
+构图：圆窗、纱帘、木案、卷轴、青瓷茶盏在画面中形成安静的室内层次，陆雪琪坐在窗前偏中位置，白衣背影清瘦挺直。
+机位与镜头：平视略低机位，约 0.8-1.0 米；35mm-50mm 中景；中景深，前景纱帘虚化、中景人物背影、背景圆窗明亮。
+运镜手法：镜头非常慢地向内推，不打扰人物，像在靠近一段无人知晓的心事。镜头始终保持在陆雪琪身后或侧后方，不绕到正面，不暴露面部。
+画面内容：陆雪琪独坐窗前，白衣落在晨光里，背影清瘦挺直。她望着窗外很久没有动——颈椎微沉、肩线轻压，像压着一段放不下的心事。她的手垂在木案旁，指尖偶尔轻触卷轴边缘或青瓷茶盏，又松开。纱帘被晨风轻轻推动，掠过她肩侧。背影克制中透出牵挂，但不展示面部表情，避免 AI 误读为夸张悲伤、哭泣或面部特写。
+声音：屋内安静，纱帘轻响，呼吸声很轻。
+
+分镜三：00:07-00:11
+景别：手部特写、面部近景连续组接。
+构图：先近景特写拍她垂在木案旁的手，指尖轻触卷轴边缘或青瓷茶盏；再切到她的眼睫、唇线和侧脸进行特写，面部表情有呼吸感
+机位与镜头：手部特写段约 0.6 米俯拍机位，浅景深虚化背景；面部近景段约 1.2 米平视机位，85mm 定焦，浅景深虚化圆窗与纱帘。
+运镜手法：慢镜头，85mm 近景，轻微推近；每一个动作都要慢，停顿要长，情绪靠细节出现。
+画面内容：她的手指微微收紧，又松开，像在压住一个念头。晨光掠过她的眼睫，她垂眼片刻，唇线轻轻绷住。她低声喃喃，仿佛在对一个不在场的人说话：小凡……是你吗？你在哪里？说完后，她的呼吸微微一滞，眼底的犹豫慢慢沉下去，眼神反而变得清澈而坚定。人物面部严格参考陆雪琪四视图角色母版，白色仙门服饰、黑发、玉簪、清冷气质保持一致。
+声音：低语，不加字幕。
+
+分镜四：00:11-00:14
+景别：室内中景到门口方向的跟拍。
+构图：陆雪琪从窗前起身，白衣袖摆掠过木案和纱帘，圆窗与清晨竹影留在身后。
+运镜手法：前半秒极慢停顿（她在窗前骤然抬眼、神情有变），起身后轻微跟拍，速度略微加快；镜头停在她走向门外的侧影或背影处，为下一镜天琊出鞘、御剑飞行留接口。
+画面内容：她在窗前骤然停住——瞳仁微张、唇线一抿、眉心一紧，像一个散落的念头突然被自己捕捉到。下一瞬，她干净利落地起身，动作不再迟疑。不是冲动，不是惊慌，而是一个被压了很久的答案突然浮出水面：去草庙村，看他一眼。她向屋外走去，衣袂带起一阵轻风，屋内的晨光被她留在身后。
+声音：衣料轻响、脚步声、竹叶风声稍起。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_bamboo_bridge_lanterns.png" alt="红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png"><figcaption>红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_interior_round_window.jpg" alt="红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg"><figcaption>红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>3 个候选</span>
+        </div>
+        <div class="video-candidate-grid">
+            <figure class="video-candidate">
+              <video controls preload="metadata" src="assets/videos/VG-01_%E5%B0%8F%E7%AB%B9%E5%B3%B0%E8%B5%B7%E5%BF%B5%E4%B8%8E%E5%87%BA%E9%97%A8_%E5%80%99%E9%80%89A.mp4"></video>
+              <figcaption>
+                <strong>候选 A</strong>
+                <span>Seedance 2.0 / 1280x720 / 15.04s</span>
+              </figcaption>
+            </figure>
+            
+            <figure class="video-candidate">
+              <video controls preload="metadata" src="assets/videos/VG-01_%E5%B0%8F%E7%AB%B9%E5%B3%B0%E8%B5%B7%E5%BF%B5%E4%B8%8E%E5%87%BA%E9%97%A8_%E5%80%99%E9%80%89B.mp4"></video>
+              <figcaption>
+                <strong>候选 B</strong>
+                <span>Seedance 2.0 / 1280x720 / 15.04s</span>
+              </figcaption>
+            </figure>
+            
+            <figure class="video-candidate">
+              <video controls preload="metadata" src="assets/videos/VG-01_%E5%B0%8F%E7%AB%B9%E5%B3%B0%E8%B5%B7%E5%BF%B5%E4%B8%8E%E5%87%BA%E9%97%A8_%E5%80%99%E9%80%89C.mp4"></video>
+              <figcaption>
+                <strong>候选 C</strong>
+                <span>Seedance 2.0 / 1280x720 / 15.04s</span>
+              </figcaption>
+            </figure>
+            </div>
+      </section>
+    
+        </div>
+        
+      </section>
+    
+      <section class="video-group" id="VG-02">
+        <div class="video-group-head">
+          <div>
+            <span>VG-02</span>
+            <h3>小竹峰召剑与御剑离峰</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜3</span>
+            <span>15s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>【基本设定】
+人物：陆雪琪，小竹峰首座，白衣女剑修，清冷克制，白衣黑发，玉簪束发；脸型、五官、发饰、服装以陆雪琪四视图角色母版为准。
+道具：天琊神剑，银白与冰蓝半透明剑身，带剑鞘，碧蓝剑光清透克制，神剑有灵性，但不是战斗爆发；剑身、剑鞘、护手、宝石和银蓝材质以天琊神剑道具设定图为准。
+场景：小竹峰居所外回廊，清晨青蓝竹林、圆窗、屋门、纱帘、回廊残灯、晨雾。
+声音：同期声为主，无配乐；纱帘、衣袂、竹叶风声、清冷剑鸣。
+
+【氛围与面质】
+风格核心：腾讯《诛仙》动画剧集 3D 国漫质感，清冷仙侠，克制电影感。陆雪琪不是热血出征，而是心念已定后的安静行动。镜头要慢、稳、带仪式感，召剑动作干净有力，但不夸张。
+视觉基调：16:9 宽幅。小竹峰清晨青蓝冷雾为主，回廊残灯保留一点暖黄光。天琊剑光是唯一明显的碧蓝冷光，清透、锋利、克制，不要爆炸式剑气。
+节奏：前半段安静等待，后半段以切镜和特写增强&quot;神剑响应&quot;的仪式感，最后以升空远去做结。
+色彩与影调：以青蓝冷晨光为画面主色层，回廊残灯暖黄为唯一暖色点缀，冷暖对比克制。天琊碧蓝剑光清透但不炫目。画面质感接近 3D 动画中手绘质感的柔和笔触，雾气有体积感，衣料和竹木有经年使用的旧感。
+
+分镜一：00:00-00:03
+景别：回廊固定机位中景。
+构图：镜头设在回廊内侧，画面一开始没有陆雪琪。前景有回廊木栏、残灯和虚化竹叶，背景可见屋门、圆窗、纱帘与室内幽暗空间。
+机位与镜头：平视略低机位，约 0.8-1.0 米；35mm 中景。
+运镜手法：Slow Push-in，极轻微，移动量极小——从回廊空镜开始，以几乎不被察觉的速度向内推进，像晨光缓慢移过廊柱。陆雪琪入画后推进停止，镜头安静地等她站定。不要机位移动打断人物入画的节奏。
+画面内容：清晨的小竹峰回廊空寂，残灯未灭，竹影微动。陆雪琪从室内走入画面，白衣被晨风轻轻带起。她停在回廊边，神情清冷，目光已经有了决定。
+声音：纱帘轻响，衣料轻响，远处竹叶风声。
+
+分镜二：00:03-00:05
+景别：右手特写。
+构图：画面只保留陆雪琪右手、袖口和一部分白色纱质衣料，背景虚化成青蓝晨光。
+机位与镜头：85mm 特写，浅景深，镜头贴近手部，约 0.5-0.7 米俯拍。
+运镜手法：前半秒固定——手垂在袖中静止，指节微微收紧。随后镜头轻微跟随手腕翻转的动作向上微抬（轻微 Tilt-up，幅度很小），捕捉白袖划出的弧线。摄影机运动是被动的、跟随的，不抢先于人物动作。动作完成后镜头停在手腕扬起的角度，不再移动。
+画面内容：陆雪琪垂在袖中的右手忽然收紧，指节微白。随后手腕一转，白袖划出一道冷光般的弧线——这个动作是压抑许久的决断，不是愤怒，而是终于不再犹豫。袖口扬起后自然落下。
+声音：衣袖破风声很轻，随即响起一声远处回应般的剑鸣。
+
+分镜三：00:05-00:08
+景别：天琊神剑特写到飞行动作镜头。
+构图：画面保持只有天琊神剑，剑身与剑鞘放在室内剑架上，周围有卷轴、青瓷茶盏、纱帘和晨光。剑处于画面中央偏下，上方留出飞行空间。
+机位与镜头：近景特写，85mm 到 50mm；浅景深，剑身清晰，背景虚化。画面中只出现天琊神剑，不出现其他人物。
+运镜手法：三段式微运动。前半秒完全静止——剑身轻震，剑鞘发出微光，镜头不动。中间段剑身浮起离架，镜头以慢速 Dolly Out 或微幅后拉，从 85mm 特写退到 50mm 近景，给剑留出飞行空间。末段剑身加速向外飞出时，镜头短暂跟摇（gentle pan），跟随碧蓝流光的方向划过一道弧线，在剑飞出画面前半秒停住——让流光自己消失在画面边缘，镜头不追出去。
+画面内容：天琊神剑在剑架上轻轻一震，剑鞘与剑身发出清冷微光。下一瞬，神剑离开原处，带着细细的碧蓝流光穿过室内晨光，掠过纱帘与圆窗，向回廊方向飞去。流光细而克制，不是爆炸式光效。
+声音：剑鞘轻震声，清冷剑鸣，流光掠过空气的细微声响。
+
+分镜四：00:08-00:15
+景别：回廊中景 → 仰拍远景。
+构图：切回陆雪琪站在回廊边，天琊神剑从画面一侧飞入，稳稳落入她手中。背景保留回廊木栏、残灯和晨雾竹影。升空后画面转为开阔天空，回廊和竹梢留在画面下缘。
+机位与镜头：分两段。入手段低机位略仰，约 0.7-0.9 米，35mm 中景；升空段转为仰拍，约 0.3-0.5 米低机位，24mm 广角，将天空和远山纳入画面。
+运镜手法：分两段。入手段——天琊入手瞬间，镜头做一次克制的 Low Angle Tilt-up，从略仰拍她的手和剑，平滑上摇至她的脸部，速度与剑落入手中的节奏同步，在她垂眸处稍作停顿。升空段——她踏上剑光向上冲出时，镜头顺势继续上摇转为仰拍，随后立即停止，固定不动。她的身影在画面中越飞越高、越远越小，镜头不再移动，让观众&quot;目送&quot;她离开。最后约 1 秒画面为空镜——天空、远山轮廓、竹梢微动。
+画面内容：天琊神剑飞回陆雪琪手中。她握住剑，垂眸一瞬——这一眼里有决心，像终于下了决心要找到那个人。随后她踏上剑光，白衣与长发被晨风猛然扬起，碧蓝剑光在脚下绽开一圈清透光晕，带着几缕细碎流光环绕剑身。她快速升空而起，衣袂猎猎，剑光在身后拖出一道细长的碧蓝光尾。她的身影越飞越高，逐渐缩小远去，消失在晨雾与远山之间。镜头留在回廊，残灯轻轻晃动，竹叶被剑风拨开后缓缓回落，晨光安静地在空廊上移动。
+声音：剑鸣收敛，衣袂声急扬，升空瞬间有一声清越剑鸣短促爆发后迅速收敛。飞行风声渐远，最后只剩竹叶声和远处晨风。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_bamboo_bridge_lanterns.png" alt="红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png"><figcaption>红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_interior_round_window.jpg" alt="红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg"><figcaption>红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure><figure class="asset-figure asset-figure-contain"><img src="assets/prop_tianya_sword_design_v1.png" alt="红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png"><figcaption>红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png</figcaption></figure></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>1 个候选</span>
+        </div>
+        <div class="video-candidate-grid">
+            <figure class="video-candidate">
+              <video controls preload="metadata" src="assets/videos/VG-02_%E5%B0%8F%E7%AB%B9%E5%B3%B0%E5%8F%AC%E5%89%91%E4%B8%8E%E5%BE%A1%E5%89%91%E7%A6%BB%E5%B3%B0_%E5%80%99%E9%80%89A.mp4"></video>
+              <figcaption>
+                <strong>候选 A</strong>
+                <span>Seedance 2.0 / 1280x720 / 约15s</span>
+              </figcaption>
+            </figure>
+            </div>
+      </section>
+    
+        </div>
+        
+      </section>
+    
+      <section class="video-group" id="VG-03">
+        <div class="video-group-head">
+          <div>
+            <span>VG-03</span>
+            <h3>云中御剑与草庙村降落</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜4、镜5、镜6、镜7、镜8</span>
+            <span>10s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>【基本设定】
+人物：陆雪琪，白衣女剑修，清冷克制，动作利落；脸型、五官、发饰、服装以陆雪琪四视图角色母版为准。
+道具：天琊神剑，碧蓝剑光清透，飞行时剑光贴近画面边缘，不要夸张战斗特效；剑身、剑鞘、护手、宝石和银蓝材质以天琊神剑道具设定图为准。
+场景：清晨云海、青云山群峰、草庙村废墟、新建木屋远景线索。
+声音：同期声为主，无配乐；破风声、云雾呼啸、剑鸣、落地碎石声、远处微弱生活声。
+
+【氛围与面质】
+风格核心：腾讯《诛仙》动画剧集 3D 国漫质感，清晨仙侠飞行段。前半段有速度感，后半段回到废墟的安静和悬疑。
+视觉基调：16:9 宽幅。云海段使用第一人称 POV，强调穿云速度和空间纵深；降落段转为低机位，展示草庙村废墟的荒凉；最后用慢环绕和回眸给出新建木屋与绿色衣角的线索。
+色彩与影调：云海为青蓝白雾与暖金日出边缘光；草庙村为清晨薄雾、荒草、残墙、旧木灰褐色，一点新建木屋的烟火气作为异常线索。
+
+分镜一：00:00-00:04
+镜头目的：用第一人称御剑飞行建立速度感和方向感，让观众跟随陆雪琪穿过云海。
+景别：第一人称 POV 飞行镜头。
+构图：前方是流动云雾，画面边缘偶尔有碧蓝剑光掠过；远处和下方隐约可见青云山山脉、山谷、层叠云海，避免只有空白云层。
+机位与镜头：第一人称 POV，35mm，模拟陆雪琪御剑前行；前景云雾快速掠过，中远景山峦缓慢移动。
+运镜手法：POV forward flight，速度由中速逐渐加快；穿过厚云时有轻微云雾擦镜感。
+画面内容：陆雪琪御剑穿入云海，云雾从两侧掠过，剑光在画面边缘形成一条细细碧蓝线。前方山峦若隐若现，下方青云山谷在云间闪过。飞行速度明显增强，但画面保持稳定，不要剧烈晃动。
+声音：破风声增强，云雾呼啸声掠过，剑鸣很细。
+
+分镜二：00:04-00:06
+镜头目的：从云海转入草庙村上空，完成快速下降。
+景别：高空俯冲镜头。
+构图：云层突然变薄，下方出现草庙村废墟轮廓，残墙、荒草、旧路和破屋架从雾中浮现。
+机位与镜头：第一人称 POV 转俯冲，24mm-35mm，保持画面纵深。
+运镜手法：从平飞转为向下快速降落，速度感增强；前景云雾快速掠过，下方地面迅速变清晰。
+画面内容：陆雪琪穿出云层，草庙村废墟出现在下方。镜头向下俯冲，旧村路、残墙、荒草和破屋架迅速放大，像一个被时间掩埋的地方突然撞入眼前。
+声音：风声变急，云雾声掠过耳边，但不要战斗化。
+
+分镜三：00:06-00:08
+镜头目的：完成降落，让陆雪琪进入草庙村废墟空间。
+景别：低机位降落镜头。
+构图：先展示草庙村废墟中的落地点：荒草、碎瓦、残墙、旧村路、半塌房基。陆雪琪驾驭天琊神剑从画面上方降落入画。
+机位与镜头：低机位，约 0.4-0.7 米，从荒草和碎石之间仰看陆雪琪降落；24mm-35mm 环境镜头，保留废墟空间感。
+运镜手法：下降段快速但稳定，落地瞬间轻微减速，不要猛烈冲击。
+画面内容：草庙村废墟空地先入画，荒草微动，碎瓦和残墙被晨雾包围。陆雪琪脚踏天琊剑从上方落入画面，白衣和长发被风带起，剑光在落地瞬间收敛。她下剑，动作干净克制，天琊剑在身侧低低悬停或收回。
+声音：落地碎石轻响，剑鸣收细，风声从急变缓。
+
+分镜四：00:08-00:10
+镜头目的：展示草庙村废墟全貌，并给出&quot;新建木屋 / 绿色衣角&quot;的第一次发现。
+景别：短环绕环境镜头到人物反应。
+构图：陆雪琪位于画面中近景，周围是残墙、旧井、荒草、破屋架、清晨薄雾。远处废墟深处有一间新建木屋，屋檐下有一小片浅水绿色衣角，非常小，只作为线索。
+机位与镜头：35mm 环境镜头，绕陆雪琪小半圈，从她身侧绕到侧后方，最后停在她回眸视线方向。
+运镜手法：slow orbit / 小幅半环绕镜头，速度慢下来，与上一段降落形成节奏反差。最后在她回眸处短暂停住。
+画面内容：陆雪琪站在废墟中，环顾四周。镜头小幅环绕，带出残墙、旧井、荒草、破屋架和清晨薄雾。她忽然停住，像察觉到什么，回眸看向废墟深处。远处新建木屋露出一点烟火气，屋檐下有一小片浅水绿色衣角随风轻动。不要给木屋大特写，只让观众和她一起发现那个不该出现的线索。
+声音：风声变缓，远处隐约有极轻柴火声或木屋方向的生活声，陆雪琪呼吸微顿。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_qingyun_clouds_swordflight_empty.png" alt="红鸾笑/场景资产/草庙村_青云山云海御剑空镜.png"><figcaption>红鸾笑/场景资产/草庙村_青云山云海御剑空镜.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_qingyun_village_wide.png" alt="红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png"><figcaption>红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure><figure class="asset-figure asset-figure-contain"><img src="assets/prop_tianya_sword_design_v1.png" alt="红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png"><figcaption>红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png</figcaption></figure></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    </div>
+            </section>
+            
+            <section class="sequence" id="section-2">
+              <div class="section-title">
+                <span>Chapter 02</span>
+                <h2>第二幕 · 草庙村废墟（5-9镜，共19s）</h2>
+              </div>
+              <div class="shot-grid">
+      <section class="video-group" id="VG-04">
+        <div class="video-group-head">
+          <div>
+            <span>VG-04</span>
+            <h3>停步与发现木屋</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜9、镜10、镜11</span>
+            <span>11s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:04
+景别：陆雪琪特写。
+构图：废墟残墙和荒草在背景虚实之间，陆雪琪脸部为焦点。
+运镜手法：85mm 缓慢推镜，几乎不动，用时间压出情绪。
+画面内容：她停步，眼眶微红，轻轻吸了一口气，把情绪压下去。不要落泪，只要克制到近乎无声。
+声音：环境声收轻，只留风声。
+
+分镜二：00:04-00:07
+景别：近景转视线方向。
+构图：陆雪琪站在残墙与荒草之间，目光忽然停住，视线指向废墟深处。
+运镜手法：急推但幅度克制，85mm，像心口忽然一震。
+画面内容：她不敢置信地望向远处。顺着视线，画面边缘或远处隐约露出新立木屋、细细炊烟、檐下一点浅水绿色。
+声音：音效骤停，只剩极轻风声。
+
+分镜三：00:07-00:11
+景别：废墟深处木屋中景。
+构图：杂草与残墙之后，简陋木屋立在晨雾中，烟囱轻烟向上散开。
+运镜手法：固定 50mm，轻微呼吸感，给观众确认线索。
+画面内容：荒凉废墟里竟有烟火气。屋檐下的浅水绿色衣角只是小小一点，不要变成旗子。
+声音：远处柴火声隐约出现。
+
+整体风格：温柔而苍凉，发现木屋的瞬间要像命运轻轻推门，不要悬疑恐怖。
+
+限制：不要提前出现张小凡、大黄、小灰，不要把绿色衣角拍成旗子，不要现代元素，不要字幕、水印、logo，不要过度煽情。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_village_street.png" alt="红鸾笑/场景资产/草庙村_村内街巷全景.png"><figcaption>红鸾笑/场景资产/草庙村_村内街巷全景.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    </div>
+            </section>
+            
+            <section class="sequence" id="section-3">
+              <div class="section-title">
+                <span>Chapter 03</span>
+                <h2>第三幕 · 木屋与绿色衣角风铃（10-14镜，共18s）</h2>
+              </div>
+              <div class="shot-grid">
+      <section class="video-group" id="VG-05">
+        <div class="video-group-head">
+          <div>
+            <span>VG-05</span>
+            <h3>绿色衣角与无声认出</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜12、镜13、镜14</span>
+            <span>11s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:05
+景别：木屋檐下大特写。
+构图：浅水绿色女子裙角残片系在檐角下，木梁、细绳和晨雾构成背景。
+运镜手法：85mm 缓慢推镜，动作极慢。
+画面内容：布料边缘撕裂，细线头可见，随风轻摆。它不是铃铛，不是旗子，是一片被珍藏多年的衣角。
+声音：布料摩擦声，叠一声很轻的清脆风铃音。
+
+分镜二：00:05-00:08
+景别：极致微距。
+构图：阳光透过薄纱/薄绸，布纹、毛边、线头清晰。
+运镜手法：微距固定，几乎静止，让观众看清材质。
+画面内容：浅水绿色在晨光中半透明，像旧日记忆被轻轻翻开。不要出现人物手。
+声音：风铃余音，布料轻响。
+
+分镜三：00:08-00:11
+景别：陆雪琪反应特写。
+构图：绿色衣角可以在前景虚化，陆雪琪脸部为焦点。
+运镜手法：反打 85mm，缓慢推近。
+画面内容：她认出那片绿色，表情从震惊转为复杂的了然。眼中有克制的柔情和一丝疼痛，她知道那是谁的，但什么都不说。
+声音：风铃声如呼吸，环境很轻。
+
+整体风格：安静、私密、温柔、克制。衣角是情感锚点，不是装饰道具。
+
+限制：不要旗子、不要完整布条、不要金属铃铛、不要大块飘带、不要哭喊、不要多人、不要现代元素、不要字幕、水印、logo。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    </div>
+            </section>
+            
+            <section class="sequence" id="section-4">
+              <div class="section-title">
+                <span>Chapter 04</span>
+                <h2>第四幕 · 大黄小灰与张小凡（15-19镜，共17s）</h2>
+              </div>
+              <div class="shot-grid">
+      <section class="video-group" id="VG-06">
+        <div class="video-group-head">
+          <div>
+            <span>VG-06</span>
+            <h3>声响打破与衣角一响</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜15、镜16、镜17</span>
+            <span>9s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:02
+景别：木屋内声源中景。
+构图：木屋门内昏暖，门外废墟晨光透入。
+运镜手法：固定机位，先听到声音再见动作。
+画面内容：屋内突然传来狗叫和猴叫，打破刚才的寂静。
+声音：汪汪、吱吱声突然响起。
+
+分镜二：00:02-00:06
+景别：木屋门口全景。
+构图：木屋门口、荒草、残墙、晨雾同框，大黄从屋里窜出，小灰骑在背上。
+运镜手法：35mm 跟拍，动作轻快但不要低幼卡通。
+画面内容：大黄从屋里窜出，背上骑着小灰。小灰抓着肉骨头，得意催狗快跑。动作带一点日常喜感，仍保持诛仙国漫质感。
+声音：狗窜声、猴叫、脚步乱响。
+
+分镜三：00:06-00:09
+景别：檐下中景转特写。
+构图：小灰经过檐下，尾巴或动作扫到系衣角的细绳，绿色衣角猛地扬起。
+运镜手法：跟拍转固定，50mm，衣角响起时短暂停住。
+画面内容：浅水绿色衣角被带得轻轻一扬，清脆一响，陆雪琪目光随之轻动。
+声音：布料抖动加一声风铃。
+
+整体风格：日常喜感突然闯入沉重情绪，节奏可以快一点，但不能破坏木屋和废墟环境。
+
+限制：不要卡通低幼风，不要现代宠物形象，不要多余人物，不要把衣角变成旗子，不要血腥或战斗氛围，不要字幕、水印、logo。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure><div class="asset-missing">大黄：待生成</div><div class="asset-missing">小灰：待生成</div></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    
+      <section class="video-group" id="VG-07">
+        <div class="video-group-head">
+          <div>
+            <span>VG-07</span>
+            <h3>张小凡追出与怔住</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜18、镜19</span>
+            <span>8s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:04
+景别：木屋门口中景。
+构图：木屋门框、炊烟、荒草和晨光保留在画面中，张小凡从门里急忙追出。
+运镜手法：35mm 跟拍，动作带生活气。
+画面内容：张小凡粗衣麻裤，手里拿着锅铲或厨房用具，脱口喊：死狗！死猴子！他的状态是隐居生活里的嗔怪和无奈，不是战斗状态。
+声音：脚步声、含混喊声、狗猴动静远去。
+
+分镜二：00:04-00:08
+景别：张小凡特写。
+构图：木屋门框和晨光在背景中，锅铲停在半空。
+运镜手法：85mm 固定，声音突然收住。
+画面内容：他刚跨出门槛，忽然看见陆雪琪，表情从嗔怪凝固成错愕和不敢置信。动作停住，空气也停住。
+声音：音乐骤停，只剩呼吸可闻。
+
+整体风格：从烟火日常瞬间切入久别重逢，转折要清楚，但表情不要夸张。
+
+限制：不要华丽道袍，不要鬼厉黑衣战斗状态，不要现代厨具，不要多人围观，不要夸张张嘴，不要哭喊，不要字幕、水印、logo。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><div class="asset-missing">张小凡：待生成</div><div class="asset-missing">大黄：待生成</div><div class="asset-missing">小灰：待生成</div></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    </div>
+            </section>
+            
+            <section class="sequence" id="section-5">
+              <div class="section-title">
+                <span>Chapter 05</span>
+                <h2>第五幕 · 重逢微笑与片名（20-24镜，共21s）</h2>
+              </div>
+              <div class="shot-grid">
+      <section class="video-group" id="VG-08">
+        <div class="video-group-head">
+          <div>
+            <span>VG-08</span>
+            <h3>废墟对望与微笑</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜20、镜21、镜22</span>
+            <span>13s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:05
+景别：双人中景或偏远双人构图。
+构图：草庙村废墟空地中，陆雪琪与张小凡隔着一段距离静静对望；木屋在一侧或中后景，檐下绿色衣角安静垂着，大黄小灰也暂时安静下来。
+运镜手法：50mm 固定，几乎不动，把时间留给两个人。
+画面内容：废墟、木屋、风铃、两个人共同构成重逢瞬间。不要拥抱，不要走近，只是隔着距离对望。
+声音：风铃一声，随后安静。
+
+分镜二：00:05-00:09
+景别：陆雪琪特写。
+构图：陆雪琪脸部和肩部，背景是柔化的晨光废墟。
+运镜手法：85mm 缓慢推镜。
+画面内容：她望着他，嘴角慢慢浮现微笑。温柔、释然，也有多年等待后的轻颤。眼中有亮意，但不落泪。
+声音：笛/箫轻入，风声柔化。
+
+分镜三：00:09-00:13
+景别：张小凡特写。
+构图：张小凡脸部和木屋门框或晨光背景。
+运镜手法：85mm 缓慢推镜，与陆雪琪特写节奏对应。
+画面内容：张小凡也笑了，先是嘴角微动，再整张脸舒展开来。苦涩与温暖同时浮起。
+声音：BGM 轻柔流淌。
+
+整体风格：安静、温柔、克制，不靠台词解释，用微笑完成重逢。
+
+限制：不要拥抱，不要台词字幕，不要多人围观，不要现代元素，不要过度煽情，不要哭喊，不要让背景失去草庙村废墟感，不要水印 logo。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_qingyun_village_wide.png" alt="红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png"><figcaption>红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png</figcaption></figure><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure><div class="asset-missing">张小凡：待生成</div><div class="asset-missing">大黄：待生成</div><div class="asset-missing">小灰：待生成</div></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    
+      <section class="video-group" id="VG-09">
+        <div class="video-group-head">
+          <div>
+            <span>VG-09</span>
+            <h3>衣角收束与片名</h3>
+          </div>
+          <div class="video-group-meta">
+            <span>镜23、镜24</span>
+            <span>8s</span>
+            <span>Seedance 2.0 合并生成</span>
+          </div>
+        </div>
+        <div class="video-group-body">
+          <section class="video-prompt video-group-prompt">
+            <h4>合并视频生成提示词（可直接复制）</h4>
+            <p>分镜一：00:00-00:03
+景别：木屋檐下大特写。
+构图：浅水绿色女子裙角残片在画面中央或偏上，木屋檐角、暖光、薄雾和废墟轮廓虚化在背景。
+运镜手法：固定微距，布料随风轻轻扬起。
+画面内容：绿色衣角随风轻扬，晨光穿过布纹和撕裂边缘，仿佛也带着几分笑意。它代表碧瑶的在场，也见证张小凡与陆雪琪重逢。
+声音：风铃声荡漾。
+
+分镜二：00:03-00:08
+景别：黑屏片名卡。
+构图：黑屏中央出现&quot;诛仙后传·红鸾笑&quot;，书法体，暖光微现。
+运镜手法：居中弹字，3 秒后淡出，动作克制。
+画面内容：片名出现后慢慢淡出，留下风铃余音。
+声音：尾声余韵，渐静。
+
+整体风格：余韵长、安静、温柔，不要商业片过度闪光。
+
+限制：不要旗子、不要完整布条、不要金属铃铛、不要大块飘带、不要人物手拿布、不要强风猛烈甩动；片名不要现代字体，不要霓虹，不要水印 logo。</p>
+          </section>
+          <section class="reference-assets">
+            <h4>参考资产</h4>
+            <div class="visuals"><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure><div class="asset-missing">片名书法字：待设计</div></div>
+          </section>
+          
+      <section class="video-assets">
+        <div class="video-assets-head">
+          <h4>合并视频素材</h4>
+          <span>主素材</span>
+        </div>
+        
+        <div class="video-slot">
+          <div>
+            <strong>待生成 / Seedance</strong>
+            <span>16:9 视频素材占位，可追加多版本出片后人工剪辑选优</span>
+          </div>
+        </div>
+        
+      </section>
+    
+        </div>
+        
+      </section>
+    </div>
+            </section>
+            
+    
+      <section class="asset-library" id="asset-prompt-library">
+        <div class="section-title">
+          <span>Asset Prompt Library</span>
+          <h2>资产提示词库</h2>
+        </div>
+        <div class="asset-library-note">资产提示词库按“一张资产图对应一个提示词”归档；同一资产被多个镜头复用时，只保留一条资产提示词，镜头卡只放索引。</div>
+        
+            <section class="asset-category">
+              <h3>人物资产</h3>
+              <div class="asset-prompt-grid">
+                <article class="asset-prompt-card" id="asset-prompt-07">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#07</span>
+                    <h3>陆雪琪 四视图角色参考表 诛仙动画风 v2</h3>
+                    </div>
+                    <div class="shot-tags"></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/character_luxueqi_turnaround_v2.png" alt="红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png"><figcaption>红鸾笑/角色资产/陆雪琪/归档/archive_陆雪琪_四视图角色参考表_诛仙动画风_v2.png</figcaption></figure></div>
+                    <p>基于参考脸型图生成陆雪琪标准角色参考表 Character Sheet，16:9 横版，同一张画布，暗灰色背景，4 个子图横向并列。风格为腾讯《诛仙》动漫第二季/第三季 3D 国产动画风格、玄机科技建模路线、清冷写实系国漫美型角色。必须保持参考图脸型、五官、肤色、年龄感一致；人物定妆照不加道具，不要武器、法器、文字、水印。
+
+统一人物设定：陆雪琪，30岁女性仙侠剑修，青云门小竹峰首座，张小凡之妻。鹅蛋脸，柳叶弯眉，凤眼微挑，冰蓝色瞳孔，薄唇淡粉，肤白如雪，身形修长挺拔。人物比例为修长写实的 7.5-8 头身，约 7.8 头身最优，肩颈舒展，四肢纤长但不过度夸张，保持东方仙侠女性剑修的挺拔与克制美感，不要超模 9 头身，不要幼态短身比例。气质清冷克制。黑发及腰，部分用玉簪盘起，两侧长鬓发垂落。服装参考原图白色仙门服饰：纯白长裙、纱质飘逸外袍、银丝暗纹、白丝绦、浅青银白少量边饰，清冷克制，不要普通汉服、公主裙或宫廷华服。
+
+视图要求：
+1. 正面视图 Front View：正面 0 度，全身站立，双脚并拢，双臂自然下垂或微张开 15-20 度。展示服装正面结构、领口、胸前内搭、腰部丝绦、袖口和裙摆走势。
+2. 侧面视图 Side View：左侧 90 度全身站立，双脚并拢，双臂自然下垂或微张开 15-20 度。展示侧面发型轮廓、肩颈线条、外袍厚度、腰部丝绦、裙摆垂感和身体比例。必须是真正 90 度，不要 45 度斜侧面。
+3. 背面视图 Back View：背面 180 度全身站立，双脚并拢，双臂自然下垂或微张开 15-20 度。展示背后发束、玉簪、后领、背部外袍结构、腰部白丝绦、纱质外袍垂落和裙摆层次。不要回头，不要侧身。
+4. 人像特写 Portrait Close-up：肩部以上正面特写，脸型与正面全身视图 100% 匹配。五官清晰对称，冰蓝色瞳孔直视镜头，眼神平静克制，发丝根根分明，肤质真实，领口和肩部服装材质清晰。此面板作为后续角色脸型一致性核心锚图。
+
+要求：前三个全身视图的头顶和脚底必须在同一水平线上，四个子图的人物五官、肤色、发色、服装、发饰必须一致。8K 超清，电影级柔和光影，真实皮肤质感，禁止磨皮，禁止塑料皮肤，禁止网红脸，白色服装不能过曝。负面限制：不要换脸，不要尖下巴，不要过度幼态，不要浓妆，不要大红唇，不要性感姿势，不要暴露，不要低胸，不要透明暴露服装，不要现代服装，不要皇冠，不要大量珠宝，不要西方盔甲，不要高跟鞋，不要大面积红色，不要霓虹，不要赛博朋克，不要复杂背景，不要多人物。</p>
+                  </div>
+                </article>
+                </div>
+            </section>
+            
+            <section class="asset-category">
+              <h3>场景资产</h3>
+              <div class="asset-prompt-grid">
+                <article class="asset-prompt-card" id="asset-prompt-01">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#01</span>
+                    <h3>小竹峰 居所室内圆窗清晨空镜</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜1</span><span>镜2</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_interior_round_window.jpg" alt="红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg"><figcaption>红鸾笑/场景资产/小竹峰_居所室内圆窗清晨空镜.jpg</figcaption></figure></div>
+                    <p>画面为 16:9 横版，小竹峰女子居所室内空镜，腾讯《诛仙》动画剧集 3D 国漫质感，黎明后的青蓝清晨。
+
+机位采用平视略高机位，24mm 广角，三分之二侧后方观察视角；镜头位于房间内侧偏后位置，能同时看到室内陈设、圆形月洞门或圆窗、半开的窗棂，以及窗外竹林、晨雾和微弱天光。空间要宽广、干净、层次清晰。
+
+室内为小竹峰仙门雅舍：竹木结构精致，墙面素雅，青灰色木柱，圆形月洞门、圆窗或圆形窗棂清晰可见。窗边有低矮木案、青瓷茶盏、卷轴、书册、素色屏风、淡色纱帘、竹帘，陈设清雅克制，不要奢华宫殿感。
+
+窗外可见竹林、山雾、溪水或远处山壁的一小部分。清晨青蓝光从窗外进入，屋内残留少量暖色小灯或回廊灯光映入，形成克制冷暖对比。纱帘被微风轻轻吹起，空气中有少量尘埃和薄雾感。
+
+画面重点：室内空间关系、圆形门窗、竹木雅舍、窗边坐席、木案卷轴、青瓷茶盏、素色屏风、纱帘、窗外竹林晨雾。整体气质清冷、安静、出尘，是小竹峰女弟子的修仙居所。
+
+负面限制：不要人物，不要人物背影，不要人物剪影，不要动物，不要现代家具，不要电灯，不要沙发，不要床铺过于生活化，不要农舍，不要客栈，不要宫殿大殿，不要红色喜庆装饰，不要大红灯笼，不要奢华金色装饰，不要武器陈列过多，不要战斗氛围，不要夜晚，不要恐怖阴森，不要文字水印，不要 logo，不要鱼眼畸变，不要过度梦幻发光，不要把窗外完全虚化。</p>
+                  </div>
+                </article>
+                
+                <article class="asset-prompt-card" id="asset-prompt-02">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#02</span>
+                    <h3>小竹峰 竹林溪桥仙门雅舍清晨残灯</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜3</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_xiaozhufeng_bamboo_bridge_lanterns.png" alt="红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png"><figcaption>红鸾笑/场景资产/小竹峰_竹林溪桥仙门雅舍清晨残灯.png</figcaption></figure></div>
+                    <p>画面为 16:9 横版，小竹峰深处仙门女子居所外部主场景，国风仙侠动画电影质感，腾讯《诛仙》动画剧集 3D 国漫风格，黎明前后的青蓝清晨。
+
+机位采用平视略高机位，24mm 广角，三分之二侧前方观察视角；镜头位于竹林溪岸外侧，隔着溪流与小桥看向中景居所。画面宽广、干净、层次清晰。
+
+前景是高挑修长的青竹、竹叶、溪边石阶和薄雾。溪流清浅，水面有晨雾缓慢漂浮。溪上必须是一座小巧精致的弧形拱桥，不要直板桥；桥可以是竹木与青石结合，桥身略拱，栏杆细致，有东方园林感和仙门雅致感，尺度小而灵秀。
+
+中景是一座小竹峰清雅居所：青瓦或深灰瓦屋顶，屋脊轻微上扬，飞檐克制，竹木结构精致，墙面素雅，门窗有圆形月洞门、圆窗或圆形窗棂元素。入口可以有小平台、回廊、细竹帘、素色纱帘，屋内透出极淡暖光。
+
+房外回廊下挂着几盏小巧素雅的暖色灯笼，灯笼还微微亮着，像清晨天刚亮、多数人尚未醒来时残留的夜灯。灯笼颜色以淡米白、浅杏色、暖黄为主，不要大红灯笼，不要节庆感。
+
+远景是小竹峰陡峭山壁、层叠竹林和云雾。山雾在林间、溪面和屋檐后方流动，形成前景竹林、中景居所、远景仙山的三层空间。整体色调以青蓝、墨绿、淡白晨雾为主，屋内暖光与回廊残灯作为小面积点缀。
+
+负面限制：不要人物，不要人物背影，不要人物剪影，不要动物，不要农舍，不要草堆，不要茅草屋顶，不要柴火堆，不要农具，不要普通乡村木屋，不要直板桥，不要现代建筑，不要城市，不要大红灯笼，不要节庆装饰，不要喜庆氛围，不要大面积红色，不要欧式城堡，不要恐怖阴森，不要战斗场面，不要文字水印，不要 logo，不要强烈夜景，不要过度梦幻发光，不要鱼眼畸变，不要浅景深虚化大面积背景。</p>
+                  </div>
+                </article>
+                
+                <article class="asset-prompt-card" id="asset-prompt-03">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#03</span>
+                    <h3>草庙村 青云山云海御剑空镜</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜4</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_qingyun_clouds_swordflight_empty.png" alt="红鸾笑/场景资产/草庙村_青云山云海御剑空镜.png"><figcaption>红鸾笑/场景资产/草庙村_青云山云海御剑空镜.png</figcaption></figure></div>
+                    <p>画面为 16:9 横版，清晨青云山上空的云海御剑建立镜头，腾讯《诛仙》动画剧集 3D 国漫质感，东方仙侠电影场景图。
+
+机位采用高空航拍视角，24mm 超广角，从云层之间俯瞰青云山群峰与山脚方向。画面上半部分是层叠流动的青白云海，云层有明显前中后景关系；远处是巍峨连绵的青云山山脉，山腰被白色仙雾缠绕，峰顶在清晨暖金色日光边缘中若隐若现。
+
+画面中下部可以看到山谷、林海和青云山脚下的一片荒村废墟轮廓。
+
+整体氛围清冷、辽阔、安静，带一点即将抵达故地的命运感。色彩以青蓝云雾、墨青山脉、淡白晨雾为主，暖金日出边缘光作为小面积点缀。云层要有体积感，山脉和山谷要有空间纵深。</p>
+                  </div>
+                </article>
+                
+                <article class="asset-prompt-card" id="asset-prompt-04">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#04</span>
+                    <h3>草庙村 青云山脚全貌母场景</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜5</span><span>镜20</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_qingyun_village_wide.png" alt="红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png"><figcaption>红鸾笑/场景资产/草庙村_青云山脚全貌母场景.png</figcaption></figure></div>
+                    <p>生成宏大的草庙村废墟全貌场景，清晨暖橙逆光，薄雾，废墟木石材质，木屋炊烟，东方仙侠动画电影风格。视角从村外高处或山坡上远眺，16:9 横版，extreme wide establishing shot，24mm 超广角，deep depth of field。
+
+画面必须展示整个草庙村废墟坐落在青云山脚下。远景背景是巍峨连绵的青云山脉，高耸入云，山腰有云雾缭绕，带东方仙山气势；山脚下是一片荒废小村的全貌，可以看到几十处低矮残墙、倒塌房基、破屋架、断木梁、旧井、石磨、被野草覆盖的小路和零散院落遗迹。村落整体被荒草、藤蔓和薄雾包围，能看出这里曾经有人居住，如今只剩废墟。
+
+画面中后景偏右或偏中位置，保留一间新立的简陋木屋，但木屋必须很小，占画面不超过 5%-8%，只是整个废村中的一个温暖小点。木屋烟囱冒出一缕细细炊烟，炊烟在晨雾中向上散开，成为观众发现“有人住在这里”的线索，而不是画面主体。
+
+因为这是远景全貌，屋檐下的水绿色女子裙角残片可以非常小，只需要在木屋檐下有一点浅水绿色提示即可，不要做成旗子、布幡或完整飘带。它应是手掌大小的破碎衣角，被细绳系在檐角下，像珍藏多年的私人遗物。远景中不要让它变成大块装饰布。
+
+整体氛围：青云山脚、荒村废墟、清晨薄雾、温柔而苍凉、久别重逢前一刻的命运感。腾讯《诛仙》动画剧集 3D 国漫质感，东方仙侠，3D animated cinematic environment, rich environmental storytelling, Qingyun mountain background, ruined village at the foot of the mountain, atmospheric fog, warm backlight, no characters.
+
+负面限制：不要人物，不要狗，不要猴子，不要现代建筑，不要城市，不要电线杆，不要灯笼，不要金属风铃，不要旗子，不要布幡，不要长飘带，不要完整布条，不要大块布料，不要装饰挂旗，不要让木屋占满画面，不要近景构图，不要村内街巷近景，不要单一木屋特写，不要浅景深虚化背景，不要看不到青云山，不要只有小山丘，不要恐怖鬼屋感，不要夜晚，不要雪景，不要文字，不要水印。</p>
+                  </div>
+                </article>
+                
+                <article class="asset-prompt-card" id="asset-prompt-05">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#05</span>
+                    <h3>草庙村 村内街巷全景</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜6</span><span>镜7</span><span>镜8</span><span>镜10</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_village_street.png" alt="红鸾笑/场景资产/草庙村_村内街巷全景.png"><figcaption>红鸾笑/场景资产/草庙村_村内街巷全景.png</figcaption></figure></div>
+                    <p>画面为 16:9 横版，草庙村废墟村内街巷全景，腾讯《诛仙》动画剧集 3D 国漫质感，清晨暖橙逆光，薄雾轻笼。
+
+机位保持 24mm-35mm 广角，视角位于荒废村路中段，沿旧村路向前看。画面要有清晰前景、中景、远景：前景是断裂木梁、碎瓦、荒草和半埋石块；中景是两侧低矮残墙、倒塌房基、旧院墙、青苔石磨或旧井；远景继续延伸出被晨雾吞没的残破村路和模糊山影。
+
+整体必须能看出“曾经是村子，如今荒废多年”：旧路仍有走向，房基仍有轮廓，断木梁、碎瓦、荒草、藤蔓和湿润石墙交错。画面细节丰富，适合作为后续镜头裁切出断梁、石磨、半埋木柱、旧村路、残墙、荒草等局部。
+
+光线保持温柔清晨，不要恐怖化。暖橙逆光从远处穿过薄雾，照亮草尖和破碎木结构边缘。画面苍凉但不阴森，有久别重返旧地的安静气息。
+
+负面限制：不要人物，不要动物，不要现代物品，不要电线杆，不要城市元素，不要血迹，不要恐怖鬼屋，不要夜晚，不要新建筑，不要让木屋成为主体，不要文字水印，不要浅景深虚化大面积背景。</p>
+                  </div>
+                </article>
+                
+                <article class="asset-prompt-card" id="asset-prompt-06">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#06</span>
+                    <h3>草庙村 木屋近景 绿色衣角风铃</h3>
+                    </div>
+                    <div class="shot-tags"><span>镜10</span><span>镜11</span><span>镜12</span><span>镜13</span><span>镜14</span><span>镜16</span><span>镜17</span><span>镜18</span><span>镜19</span><span>镜20</span><span>镜23</span></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure"><img src="assets/scene_wood_house_cloth.jpg" alt="红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg"><figcaption>红鸾笑/场景资产/草庙村_木屋近景_绿色衣角风铃.jpg</figcaption></figure></div>
+                    <p>画面为 16:9 横版，草庙村废墟深处木屋近景，清晨暖光，薄雾，腾讯《诛仙》动画剧集 3D 国漫质感。
+
+杂草与残墙之后，一间新立但简陋的木屋赫然立着。木屋木板粗糙朴素，结构简洁，歪斜烟囱飘出袅袅轻烟。木屋周围仍是草庙村废墟：断墙、倒塌木梁、荒草、碎石、碎瓦和晨雾。画面要保留“荒废村落中的一点烟火气”，不要把木屋做成精致客栈或仙门建筑。
+
+屋檐下保留一小片浅水绿色女子裙角残片，用细绳系住，随风轻轻动。它是手掌大小的不规则破碎衣角，边缘撕裂，有细线头，薄纱或薄绸质地，旧而柔软。它可以被看见，但不要做成大旗帜、布幡、完整飘带或装饰风铃。
+
+整体氛围是荒凉中的烟火气，是“有人在废墟中住下”的关键线索。晨光从侧后方照来，炊烟、薄雾和衣角轻动形成安静、温柔、克制的记忆感。
+
+负面限制：不要人物，不要狗，不要猴子，不要金属风铃，不要旗子，不要布幡，不要长飘带，不要完整布条，不要大块布料，不要现代建筑，不要过度阴森，不要把木屋做成农家乐或客栈，不要文字水印。</p>
+                  </div>
+                </article>
+                </div>
+            </section>
+            
+            <section class="asset-category">
+              <h3>道具资产</h3>
+              <div class="asset-prompt-grid">
+                <article class="asset-prompt-card" id="asset-prompt-08">
+                  <div class="asset-prompt-head">
+                    <div>
+                      <span>#08</span>
+                    <h3>天琊神剑 道具设定图 v1</h3>
+                    </div>
+                    <div class="shot-tags"></div>
+                  </div>
+                  <div class="asset-prompt-body">
+                    <div class="visuals"><figure class="asset-figure asset-figure-contain"><img src="assets/prop_tianya_sword_design_v1.png" alt="红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png"><figcaption>红鸾笑/道具资产/天琊剑/归档/archive_天琊神剑_道具设定图_v1.png</figcaption></figure></div>
+                    <p>天琊神剑标准道具设定图，用于后续《红鸾笑》视频分镜中的道具一致性参考。主体是一柄清冷、修长、灵性极强的仙门神剑，属于陆雪琪的本命神兵。整体气质不是战斗化的凶器，而是清冷、圣洁、锋利、克制的仙剑。
+
+剑身修长轻薄，比例优雅，剑体以银白色、冰蓝色、浅青蓝色为主。剑刃像寒冰与玉石结合，半透明质感，边缘锋利但不血腥。剑身中央有细长的冰蓝色灵纹或浅蓝透明槽线，内部仿佛有很淡的灵光流动。剑刃表面有冷玉、琉璃、寒冰、银金属混合质感，反光清透，不要厚重铁剑感。
+
+剑柄与护手设计精致，有仙门神兵的华美感，但不能过度繁复。护手呈银白金属与冰蓝玉石结合的流线造型，带云纹、羽翼形、莲瓣形或水波形结构。剑柄处镶嵌青蓝宝石或碧色灵石，光芒克制。握柄修长，适合女性剑修单手持握，缠绕浅白或淡青色细纹材质，不要粗犷武器感。
+
+剑鞘与剑身风格统一，银白、冰蓝、浅青蓝为主，表面有细密银丝纹、云纹、寒冰纹或青云门仙纹。剑鞘修长轻薄，末端精致，带少量玉石嵌件。后续视频中需保持剑身、剑鞘、护手、宝石、银蓝材质与该图一致。
+
+风格参考腾讯《诛仙》动画剧集第二季 / 第三季 3D 国漫质感，玄机科技建模路线，仙侠古风，高级 3D CG 道具设定图。无文字、无水印、无 logo、无多余人物、无手持人物、无背景场景、无血迹、无破损、无现代科幻机械结构、不要西方骑士剑、不要武侠厚重大刀感、不要夸张火焰、不要爆炸剑气、不要大红大紫。</p>
+                  </div>
+                </article>
+                </div>
+            </section>
+            
+      </section>
+    
+  </main>
+</body>
+</html>
